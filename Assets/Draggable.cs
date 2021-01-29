@@ -14,7 +14,6 @@ public class Draggable : MonoBehaviour
     public string objectType;
 
     public void OnMouseDown() {
-        Debug.Log("Plölölöl");
         isDragging = true;
     }
 
@@ -26,7 +25,7 @@ public class Draggable : MonoBehaviour
     {
         if (col.tag == "Container" && !isDragging) {
             gameController.setStatusText("Valitsit: " + objectType);
-            Destroy(GetComponent<GameObject>());
+            Destroy(this);
         }
     }
 
