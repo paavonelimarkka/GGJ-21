@@ -15,4 +15,5 @@ public class RatMovement : MonoBehaviour
 
         transform.Translate(hor,ver,0);
     }
+    
 }
