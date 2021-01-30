@@ -23,9 +23,7 @@ public class Draggable : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D col) {
-        if (col.tag == "ItemContainer") {
-            Debug.Log(gameObject.name + " has been taken from the chest");
-        }
+        Debug.Log(gameObject.name + " has been taken from the chest");
     }
         
 }
