@@ -24,9 +24,11 @@ public class Draggable : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D col) {
-        Debug.Log(gameObject.name + " has been taken from the chest");
-        RatInteract kekkala = rat.GetComponent<RatInteract>();
-        kekkala.activeItem = gameObject.name;
+        if (col.tag == "ItemContainer") {
+            Debug.Log(gameObject.name + " has been taken from the chest");
+            RatInteract kekkala = rat.GetComponent<RatInteract>();
+            kekkala.activeItem = gameObject.name;
+        }
     }
         
 }
