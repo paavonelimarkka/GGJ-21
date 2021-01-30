@@ -77,6 +77,9 @@ public class Animal : MonoBehaviour
     }
 
     public void Leave() {
+        GameObject mood = this.gameObject.transform.GetChild(1).gameObject;
+        mood.GetComponent<SpriteRenderer>().sprite = this.GetComponent<AnimalResources>().moodSprites["Bad"];
+        mood.SetActive(true);
         queueReference.LeaveFromQueue(this.gameObject);
         GetComponent<SpriteRenderer>().flipX = true;
         wayPoint = wayPointBack;
