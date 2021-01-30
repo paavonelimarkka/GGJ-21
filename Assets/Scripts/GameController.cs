@@ -42,9 +42,24 @@ public class GameController : MonoBehaviour
     void Awake() 
     {
         firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bear", new List<string>{ "Claw", "Honey", "Berries" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Cat", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Reindeer", new List<string>{ "Claw", "Honey", "Berries" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Reindeer", new List<string>{ "Claw", "Honey", "Berries" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Reindeer", new List<string>{ "Claw", "Honey", "Berries" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Reindeer", new List<string>{ "Claw", "Honey", "Berries" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Turtle", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Turtle", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Turtle", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Turtle", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }));
         firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
         firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
         canSpawn = true;
         // Generate animals and animal items, populate a container with items
@@ -65,7 +80,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SetStatusText("Status");
-        StartCoroutine(AnimalRandTimer(10f, 5f));
+        StartCoroutine(AnimalRandTimer(1f, 0.5f));
     }
     public void SetStatusText(string text) {
         statusText.GetComponent<Text>().text = text;
@@ -96,6 +111,7 @@ public class GameController : MonoBehaviour
     IEnumerator AnimalRandTimer(float wait, float randomizer)
     {
         while(canSpawn && firstLvlAnimals.Count > 0) {
+            yield return new WaitForSeconds(1f);
             SpawnAnimal();
             yield return new WaitForSeconds(wait + Random.Range(-randomizer, randomizer));
         }
