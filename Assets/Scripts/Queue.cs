@@ -13,15 +13,12 @@ public class Queue : MonoBehaviour
         head = this.gameObject.transform.GetChild(0);
         tail = this.gameObject.transform.GetChild(1);
     }
-
-    void Start() {
-        Debug.Log(head.position);
-    }
     
-    public void SpawnToQueue(KeyValuePair<string, List<string>> animalInfo, GameObject animalPrefab) {
+    public void SpawnToQueue(KeyValuePair<string, List<string>> animalInfo, GameObject animalPrefab, Sprite animalSprite) {
         GameObject newObject = Instantiate(animalPrefab, tail.position, tail.rotation);
         Animal newAnimal = newObject.AddComponent<Animal>();
-        newAnimal.Initialize(animalInfo.Key, Random.Range(6,60), animalInfo.Value[Random.Range(0, animalInfo.Value.Count)]);
+        newAnimal.Initialize(animalInfo.Key, Random.Range(30f,80f), animalInfo.Value[Random.Range(0, animalInfo.Value.Count)]);
+        newObject.GetComponent<SpriteRenderer>().sprite = animalSprite;
         newObject.GetComponent<Animal>().Move(head);
         head.position += new Vector3(1f, 0, 0);
     }
