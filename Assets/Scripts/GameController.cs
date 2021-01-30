@@ -13,6 +13,10 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private List<GameObject> draggables;
 
+    // Queues
+    [SerializeField]
+    private List<GameObject> queues;
+
     // Container for draggable objects
     [SerializeField]
     private GameObject container;
@@ -21,37 +25,34 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject itemPrefab;
 
+    // Animal prefab
+    [SerializeField]
+    private GameObject animalPrefab;
+
+    private bool canSpawn;
     // Level info used to populate the queue & chest/box/whatever
-    private static Dictionary<string, List<string>> firstLvlAnimals = new Dictionary<string, List<string>>() {
-            {"Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }},
-            {"Bear", new List<string>{ "Claw", "Honey", "Berries" }},
-            {"Cat", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }},
-            {"Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }},
-            {"Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }},
-        };
+    private List<KeyValuePair<string, List<string>>> firstLvlAnimals = new List<KeyValuePair<string, List<string>>>();
     // Make an instance of LevelInfo parameters: int level, int timelimit,
     // Dictionary<string, List<string>> animalDictionary with animal names as keys and list of possible lost items as value
-    private LevelInfo firstLevel = new LevelInfo(1, 400, firstLvlAnimals);        
-
-    // The actual 'Animals'
-    private List<Animal> animals = new List<Animal>();
+    private LevelInfo firstLevel;
     
     void Awake() 
     {
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bear", new List<string>{ "Claw", "Honey", "Berries" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Cat", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
+        canSpawn = true;
         // Generate animals and animal items, populate a container with items
-        foreach (KeyValuePair<string, List<string>> animal in firstLevel.animalItemInfo) {
-            // New Animal, with name, hurryAmount(seconds), wanted item randomly from the list of potential items
-            Animal newAnimal = new Animal(animal.Key, Random.Range(6, 60), animal.Value[Random.Range(0, animal.Value.Count)]);
-            animals.Add(newAnimal);
-            Debug.Log(newAnimal.ToString());
-
+        foreach (KeyValuePair<string, List<string>> animal in firstLvlAnimals) {
             // Set up the new item with random color
             GameObject newItem = itemPrefab;
-            randomizeColor(newItem);
+            RandomizeColor(newItem);
 
             // Get container bounding rect and select a random position inside it (with a margin for graphics)
             float containerMargin = 1;
-            Vector3 randomPosition = container.transform.position + getRandomSpawn(container, containerMargin);
+            Vector3 randomPosition = container.transform.position + GetRandomSpawn(container, containerMargin);
             
             Instantiate(newItem, randomPosition, container.transform.rotation);
         }
@@ -60,14 +61,15 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        setStatusText("Status");
+        SetStatusText("Status");
+        StartCoroutine(AnimalRandTimer(4f, 3f));
     }
-    public void setStatusText(string text) {
+    public void SetStatusText(string text) {
         statusText.GetComponent<Text>().text = text;
     }
 
     // Randomize GameObjects color
-    public void randomizeColor(GameObject obj) {
+    public void RandomizeColor(GameObject obj) {
         Color randomColor = new Color(
             Random.Range(0f, 1f), 
             Random.Range(0f, 1f), 
@@ -78,7 +80,7 @@ public class GameController : MonoBehaviour
     }
 
     // Get randomized Vector3 to add to containers position to get a spawnpoint inside its sprite.
-    public Vector3 getRandomSpawn(GameObject obj, float margin) {
+    public Vector3 GetRandomSpawn(GameObject obj, float margin) {
         SpriteRenderer targetSprite = obj.GetComponent<SpriteRenderer>();
         
         float xMin = -targetSprite.bounds.size.x/2 + margin;
@@ -86,5 +88,21 @@ public class GameController : MonoBehaviour
         float yMin = -targetSprite.bounds.size.y/2 + margin;
         float yMax = targetSprite.bounds.size.y/2 - margin;
         return new Vector3(Random.Range(xMin, xMax), Random.Range(yMin, yMax), 0);
+    }
+
+    IEnumerator AnimalRandTimer(float wait, float randomizer)
+    {
+        while(canSpawn && firstLvlAnimals.Count > 0) {
+            yield return new WaitForSeconds(wait + Random.Range(-randomizer, randomizer));
+            SpawnAnimal();
+        }
+    }
+
+    public void SpawnAnimal() {
+        int randomAnimalIndex = Random.Range(0, firstLvlAnimals.Count);
+        KeyValuePair<string, List<string>> randomAnimalInfo = firstLvlAnimals[randomAnimalIndex];
+        GameObject chosenQueue = queues[Random.Range(0, queues.Count)];
+        chosenQueue.GetComponent<Queue>().SpawnToQueue(randomAnimalInfo, animalPrefab);
+        firstLvlAnimals.Remove(randomAnimalInfo);
     }
 }

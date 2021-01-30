@@ -5,7 +5,7 @@ using UnityEngine;
 
 // Class (could be a struct) to hold LevelInfo
 
-public class LevelInfo
+public class LevelInfo : ScriptableObject
 {
     private int level;
     private int timeLimit;

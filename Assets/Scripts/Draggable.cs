@@ -21,7 +21,7 @@ public class Draggable : MonoBehaviour
     void OnTriggerStay2D(Collider2D col)
     {
         if (col.tag == "Container" && !isDragging) {
-            gameController.setStatusText("Valitsit: " + objectType);
+            gameController.SetStatusText("Valitsit: " + objectType);
         }
     }
 
