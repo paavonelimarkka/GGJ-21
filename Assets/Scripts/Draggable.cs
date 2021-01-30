@@ -1,10 +1,11 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Draggable : MonoBehaviour
 {
     private bool isDragging;
+    public GameObject rat;
 
     public void OnMouseDown() {
         isDragging = true;
@@ -24,6 +25,8 @@ public class Draggable : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D col) {
         Debug.Log(gameObject.name + " has been taken from the chest");
+        RatInteract kekkala = rat.GetComponent<RatInteract>();
+        kekkala.activeItem = gameObject.name;
     }
         
 }

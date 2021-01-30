@@ -5,6 +5,7 @@ using UnityEngine;
 public class RatInteract : MonoBehaviour
 {
 
+    public string activeItem;
 
     void OnTriggerStay2D(Collider2D col)
     {
