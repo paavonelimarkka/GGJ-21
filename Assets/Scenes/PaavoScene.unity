@@ -566,6 +566,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemChestOpened
       objectReference: {fileID: 0}
+    - target: {fileID: 8348275285159356995, guid: 1331ff8fe5fadee48910977991b0cd54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8844813358463059931, guid: 1331ff8fe5fadee48910977991b0cd54,
         type: 3}
       propertyPath: m_RootOrder

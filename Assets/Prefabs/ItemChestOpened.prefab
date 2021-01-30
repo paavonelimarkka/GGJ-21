@@ -11,7 +11,11 @@ GameObject:
   - component: {fileID: 8844813358463059931}
   - component: {fileID: 1469213813468776528}
   - component: {fileID: 638207972}
+<<<<<<< HEAD
+  m_Layer: 0
+=======
   m_Layer: 2
+>>>>>>> fdaeee48ee50154adc9fcba702d70c362e0d1ae6
   m_Name: ItemChestOpened
   m_TagString: ItemContainer
   m_Icon: {fileID: 0}
