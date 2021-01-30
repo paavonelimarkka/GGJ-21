@@ -6,9 +6,6 @@ public class Draggable : MonoBehaviour
 {
     private bool isDragging;
 
-    [SerializeField]
-    private GameObject container;
-
     private GameController gameController;
     [SerializeField]
     public string objectType;
@@ -25,7 +22,6 @@ public class Draggable : MonoBehaviour
     {
         if (col.tag == "Container" && !isDragging) {
             gameController.setStatusText("Valitsit: " + objectType);
-            Destroy(this);
         }
     }
 
