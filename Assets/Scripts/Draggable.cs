@@ -1,14 +1,10 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Draggable : MonoBehaviour
 {
     private bool isDragging;
-
-    private GameController gameController;
-    [SerializeField]
-    public string objectType;
 
     public void OnMouseDown() {
         isDragging = true;
@@ -17,17 +13,7 @@ public class Draggable : MonoBehaviour
     public void OnMouseUp() {
         isDragging = false;
     }
-    
-    void OnTriggerStay2D(Collider2D col)
-    {
-        if (col.tag == "Container" && !isDragging) {
-            gameController.SetStatusText("Valitsit: " + objectType);
-        }
-    }
 
-    void Awake() {
-        gameController = GameObject.Find("/GameController").GetComponent<GameController>();
-    }
     void Update()
     {
         if (isDragging) {
@@ -35,4 +21,11 @@ public class Draggable : MonoBehaviour
             transform.Translate(mousePosition);
         }
     }
+
+    private void OnTriggerExit2D(Collider2D col) {
+        if (col.tag == "ItemContainer") {
+            Debug.Log(gameObject.name + " has been taken from the chest");
+        }
+    }
+        
 }

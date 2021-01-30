@@ -7,6 +7,8 @@ TagManager:
   - Container
   - ItemContainer
   - Queue
+  - Cigar
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Draggable
   - 
   - 
   - 
@@ -43,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Chest
+    uniqueID: 1187154455
     locked: 0
