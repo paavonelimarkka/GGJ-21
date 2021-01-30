@@ -362,6 +362,27 @@ PolygonCollider2D:
       - {x: 0.089999996, y: -2.26}
       - {x: 0.11, y: -2.21}
       - {x: 0.14, y: -2.1}
+--- !u!50 &922083141
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922083137}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &1190910992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -456,27 +477,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2809393569885609683}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &1669258561
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669258560}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1001 &100405141552125770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -484,6 +484,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100405141255714753, guid: 3b6bb62c36771b84e9e21dd088d6492e,
+        type: 3}
+      propertyPath: itemChestOpen
+      value: 
+      objectReference: {fileID: 1669258560}
     - target: {fileID: 100405141255714754, guid: 3b6bb62c36771b84e9e21dd088d6492e,
         type: 3}
       propertyPath: m_RootOrder
@@ -709,7 +714,7 @@ PrefabInstance:
     - target: {fileID: 2509081113064810816, guid: 18030c250722a1045a3691ca895bd481,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4
+      value: -0.44
       objectReference: {fileID: 0}
     - target: {fileID: 2509081113064810816, guid: 18030c250722a1045a3691ca895bd481,
         type: 3}
