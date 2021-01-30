@@ -17,20 +17,21 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject container;
 
-    // Item prefab to create
+    // Item prefab
     [SerializeField]
     private GameObject itemPrefab;
 
     // Level info used to populate the queue & chest/box/whatever
-    [SerializeField]
-    private Dictionary<string, List<string>> levelInfo = 
-        new Dictionary<string, List<string>>() {
+    private static Dictionary<string, List<string>> firstLvlAnimals = new Dictionary<string, List<string>>() {
             {"Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }},
             {"Bear", new List<string>{ "Claw", "Honey", "Berries" }},
             {"Cat", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }},
             {"Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }},
             {"Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }},
         };
+    // Make an instance of LevelInfo parameters: int level, int timelimit,
+    // Dictionary<string, List<string>> animalDictionary with animal names as keys and list of possible lost items as value
+    private LevelInfo firstLevel = new LevelInfo(1, 400, firstLvlAnimals);        
 
     // The actual 'Animals'
     private List<Animal> animals = new List<Animal>();
@@ -38,7 +39,7 @@ public class GameController : MonoBehaviour
     void Awake() 
     {
         // Generate animals and animal items, populate a container with items
-        foreach (KeyValuePair<string, List<string>> animal in levelInfo) {
+        foreach (KeyValuePair<string, List<string>> animal in firstLevel.animalItemInfo) {
             // New Animal, with name, hurryAmount(seconds), wanted item randomly from the list of potential items
             Animal newAnimal = new Animal(animal.Key, Random.Range(6, 60), animal.Value[Random.Range(0, animal.Value.Count)]);
             animals.Add(newAnimal);
