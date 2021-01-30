@@ -5,7 +5,11 @@ using UnityEngine;
 public class AnimalRandomizer : MonoBehaviour
 {
 
-    public enum Animals {Bulldog, Lion, Shark};
+    public enum Animals {
+        Bulldog,
+        Lion,
+        Shark
+        };
     public float randTimer = 1.0f;
     private int animalsLength;
     private IEnumerator coroutine;
