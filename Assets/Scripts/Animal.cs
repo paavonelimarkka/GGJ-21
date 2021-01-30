@@ -10,6 +10,7 @@ public class Animal : MonoBehaviour
     private string animalType;
     private AnimalItem item;
     private DateTime spawnTime;
+    private Sprite animalSprite;
 
     public Vector3 wayPoint;
     private Vector3 wayPointBack;
@@ -26,6 +27,7 @@ public class Animal : MonoBehaviour
 
     private bool destructOnArrival = false;
     public Queue queueReference;
+    private GameController gameController;
 
     public void Initialize(string animal, float animalHurry, string wantedItem) {
         animalType = animal;
@@ -35,9 +37,12 @@ public class Animal : MonoBehaviour
         item = new AnimalItem(wantedItem);
         spawnTime = new DateTime();
         speed = defaultSpeed * animalHurry;
+        animalSprite = this.GetComponent<AnimalResources>().animalSprites[animal];
+        GetComponent<SpriteRenderer>().sprite = animalSprite;
     }
-    void Awake() {
+    void Start() {
         GameObject progressObject = this.gameObject.transform.GetChild(0).gameObject;
+        gameController = GameObject.Find("/GameController").GetComponent<GameController>();
         progress = progressObject.GetComponent<SpriteRenderer>();
     }
 
@@ -77,13 +82,26 @@ public class Animal : MonoBehaviour
     }
 
     public void Leave() {
-        GameObject mood = this.gameObject.transform.GetChild(1).gameObject;
-        mood.GetComponent<SpriteRenderer>().sprite = this.GetComponent<AnimalResources>().moodSprites["Bad"];
-        mood.SetActive(true);
-        queueReference.LeaveFromQueue(this.gameObject);
+
+        SetMood("Bad");
+        PlaySound();
         GetComponent<SpriteRenderer>().flipX = true;
+        
+        queueReference.LeaveFromQueue(this.gameObject);
         wayPoint = wayPointBack;
         moving = true;
         destructOnArrival = true;
     }
+
+    public void SetMood(string moodToSet) {
+        GameObject mood = this.gameObject.transform.GetChild(1).gameObject;
+        mood.GetComponent<SpriteRenderer>().sprite = this.GetComponent<AnimalResources>().moodSprites[moodToSet];
+        mood.SetActive(true);
+    }
+
+    public void PlaySound() {
+        AudioClip animalSound = this.GetComponent<AnimalResources>().animalSounds[animalType];
+        SoundManager.Instance.Play(animalSound);
+    }
+    
 }
