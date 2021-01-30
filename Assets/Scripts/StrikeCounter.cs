@@ -26,7 +26,7 @@ public class StrikeCounter : MonoBehaviour
         if (strikeCount == 3) {
             strike3.SetActive(true);
         }
-        else {
+        else if (strikeCount >= 3) {
             strike1.SetActive(false);
             strike2.SetActive(false);
             strike3.SetActive(false);
