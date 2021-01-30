@@ -29,6 +29,9 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject animalPrefab;
 
+    [SerializeField]
+    private List<Sprite> animalSprites;
+
     private bool canSpawn;
     // Level info used to populate the queue & chest/box/whatever
     private List<KeyValuePair<string, List<string>>> firstLvlAnimals = new List<KeyValuePair<string, List<string>>>();
@@ -54,7 +57,7 @@ public class GameController : MonoBehaviour
             float containerMargin = 1;
             Vector3 randomPosition = container.transform.position + GetRandomSpawn(container, containerMargin);
             
-            Instantiate(newItem, randomPosition, container.transform.rotation);
+            //Instantiate(newItem, randomPosition, container.transform.rotation);
         }
     }
 
@@ -62,7 +65,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SetStatusText("Status");
-        StartCoroutine(AnimalRandTimer(4f, 3f));
+        StartCoroutine(AnimalRandTimer(10f, 5f));
     }
     public void SetStatusText(string text) {
         statusText.GetComponent<Text>().text = text;
@@ -100,9 +103,10 @@ public class GameController : MonoBehaviour
 
     public void SpawnAnimal() {
         int randomAnimalIndex = Random.Range(0, firstLvlAnimals.Count);
+        Sprite randomSprite = animalSprites[Random.Range(0, animalSprites.Count)];
         KeyValuePair<string, List<string>> randomAnimalInfo = firstLvlAnimals[randomAnimalIndex];
         GameObject chosenQueue = queues[Random.Range(0, queues.Count)];
-        chosenQueue.GetComponent<Queue>().SpawnToQueue(randomAnimalInfo, animalPrefab);
+        chosenQueue.GetComponent<Queue>().SpawnToQueue(randomAnimalInfo, animalPrefab, randomSprite);
         firstLvlAnimals.Remove(randomAnimalInfo);
     }
 }
