@@ -26,8 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8424941543600095210}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD:Assets/Prefabs/ItemChestOpen.prefab
   m_LocalPosition: {x: -7.34, y: 0.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+=======
+  m_LocalPosition: {x: -5.3706384, y: -0.13423946, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+>>>>>>> 172c19f733f987eea6c5876cc0c7b60b14ba5260:Assets/Prefabs/ItemChestOpened.prefab
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -95,7 +100,11 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
+<<<<<<< HEAD:Assets/Prefabs/ItemChestOpen.prefab
   m_Offset: {x: -0.048459053, y: -0.03634405}
+=======
+  m_Offset: {x: 0, y: 0}
+>>>>>>> 172c19f733f987eea6c5876cc0c7b60b14ba5260:Assets/Prefabs/ItemChestOpened.prefab
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -106,5 +115,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
+<<<<<<< HEAD:Assets/Prefabs/ItemChestOpen.prefab
   m_Size: {x: 6.1823587, y: 6.2065907}
+=======
+  m_Size: {x: 6.2, y: 6.2}
+>>>>>>> 172c19f733f987eea6c5876cc0c7b60b14ba5260:Assets/Prefabs/ItemChestOpened.prefab
   m_EdgeRadius: 0

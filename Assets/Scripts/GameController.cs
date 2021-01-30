@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
- using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -62,10 +62,10 @@ public class GameController : MonoBehaviour
         firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
         firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
         firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Dog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bulldog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bulldog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bulldog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bulldog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
         canSpawn = true;
         // Generate animals and animal items, populate a container with items
         foreach (KeyValuePair<string, List<string>> animal in firstLvlAnimals) {
@@ -133,10 +133,9 @@ public class GameController : MonoBehaviour
 
     public void SpawnAnimal() {
         int randomAnimalIndex = Random.Range(0, firstLvlAnimals.Count);
-        Sprite randomSprite = animalSprites[Random.Range(0, animalSprites.Count)];
         KeyValuePair<string, List<string>> randomAnimalInfo = firstLvlAnimals[randomAnimalIndex];
         GameObject chosenQueue = queues[Random.Range(0, queues.Count)];
-        chosenQueue.GetComponent<Queue>().SpawnToQueue(randomAnimalInfo, animalPrefab, randomSprite);
+        chosenQueue.GetComponent<Queue>().SpawnToQueue(randomAnimalInfo, animalPrefab);
         firstLvlAnimals.Remove(randomAnimalInfo);
     }
 }
