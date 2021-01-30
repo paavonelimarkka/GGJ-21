@@ -65,7 +65,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SetStatusText("Status");
-        StartCoroutine(AnimalRandTimer(5f, 5f));
+        StartCoroutine(AnimalRandTimer(10f, 5f));
     }
     public void SetStatusText(string text) {
         statusText.GetComponent<Text>().text = text;
