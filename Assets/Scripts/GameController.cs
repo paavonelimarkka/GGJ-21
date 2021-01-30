@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -33,6 +34,10 @@ public class GameController : MonoBehaviour
     private List<Sprite> animalSprites;
 
     private bool canSpawn;
+
+    // PLAYER *HEALTH*
+    private int strikes = 0;
+
     // Level info used to populate the queue & chest/box/whatever
     private List<KeyValuePair<string, List<string>>> firstLvlAnimals = new List<KeyValuePair<string, List<string>>>();
     // Make an instance of LevelInfo parameters: int level, int timelimit,
@@ -86,6 +91,15 @@ public class GameController : MonoBehaviour
         statusText.GetComponent<Text>().text = text;
     }
 
+    public void AddStrike() {
+        strikes ++;
+        if (strikes == 3) {
+            GameOver();
+        }
+    }
+    private void GameOver() {
+        SceneManager.LoadScene("GameOver");
+    }
     // Randomize GameObjects color
     public void RandomizeColor(GameObject obj) {
         Color randomColor = new Color(
