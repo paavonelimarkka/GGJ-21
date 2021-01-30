@@ -93,8 +93,8 @@ public class GameController : MonoBehaviour
     IEnumerator AnimalRandTimer(float wait, float randomizer)
     {
         while(canSpawn && firstLvlAnimals.Count > 0) {
-            yield return new WaitForSeconds(wait + Random.Range(-randomizer, randomizer));
             SpawnAnimal();
+            yield return new WaitForSeconds(wait + Random.Range(-randomizer, randomizer));
         }
     }
 

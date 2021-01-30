@@ -15,7 +15,7 @@ public class Animal : MonoBehaviour
     private Transform wayPoint;
 
     private float speed;
-    private float defaultSpeed = 0.01f;
+    private float defaultSpeed = 2f;
     private bool moving = false;
 
     public void Initialize(string animal, float animalHurry, string wantedItem) {
@@ -27,10 +27,10 @@ public class Animal : MonoBehaviour
     }
 
     void Update() {
-        float step = speed * Time.deltaTime;
-        while (moving) {
-            this.gameObject.transform.position = Vector2.MoveTowards(transform.position, wayPoint.position, step);
-            if (this.gameObject.transform.position == wayPoint.position) {
+        float step = defaultSpeed * Time.deltaTime;
+        if (moving) {
+            transform.position = Vector2.MoveTowards(transform.position, wayPoint.position, step);
+            if (transform.position == wayPoint.position) {
                 moving = false;
             }
         }
