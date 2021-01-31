@@ -16,9 +16,13 @@ public class GameController : MonoBehaviour
     [SerializeField]
     public NamedSprite[] items;
     public Dictionary<string, Sprite> itemSprites;
+
     // UI Stuff
     [SerializeField]
     private Text statusText;
+    public GameObject ScoreText; // Drag the GameUI Score under ScoreText here
+    public int scoreInt; // This is the score integer
+
 
     // Draggable gameobjects
     [SerializeField]
@@ -93,10 +97,21 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SetStatusText("Status");
+        UpdateScoreInt(0);
         StartCoroutine(AnimalSpawner(3f, 1f));
     }
+
+    private void Update() {
+        UpdateScoreInt(scoreInt);
+    }
+
     public void SetStatusText(string text) {
         statusText.GetComponent<Text>().text = text;
+    }
+
+    // Updates score UI text using a score int. Pass scoreInt to this function
+    public void UpdateScoreInt(int score) {
+        ScoreText.GetComponent<Text>().text = score.ToString();
     }
 
     public void AddStrike() {
@@ -104,14 +119,17 @@ public class GameController : MonoBehaviour
         strikeCounter.GetComponent<StrikeCounter>().strikeCount = strikes;
         if (strikes == 3) {
             float waitUntilLoad = 0.5f;
+            scoreInt = 0;
             StartCoroutine(GameOver(waitUntilLoad));
         }
     }
+
     IEnumerator GameOver(float waitUntilLoad) {
         gameOver = true;
         yield return new WaitForSeconds(waitUntilLoad);
         SceneManager.LoadScene("GameOver");
     }
+
     // Randomize GameObjects color
     public void RandomizeColor(GameObject obj) {
         Color randomColor = new Color(
