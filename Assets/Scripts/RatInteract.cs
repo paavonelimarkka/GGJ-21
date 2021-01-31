@@ -7,6 +7,13 @@ public class RatInteract : MonoBehaviour
 
     public GameObject activeItem;
     public GameObject itemChestOpen;
+    public GameObject itemChest;
+
+
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
+
 
     public bool carrying = false;    
     public void SetActiveToHands(bool setItem) {
@@ -21,17 +28,28 @@ public class RatInteract : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.tag == "ItemContainer" && Input.GetKey("e")) {
+        if (col.gameObject == itemChest && Input.GetKey("e")) {
             itemChestOpen.SetActive(true);
+                 
         }
-        if (col.tag == "Queue" && Input.GetKey("e")) {
+        if (col.tag == "Queue" && Input.GetKeyDown("e")) {
             Debug.Log("Queue stuff activated");
-            bool success = col.gameObject.GetComponent<Animal>().OfferItem(activeItem.GetComponent<Draggable>().itemType);
-            if (success) {
-                Destroy(activeItem);
-                SetActiveToHands(false);
+            if (activeItem) {
+                bool success = col.gameObject.GetComponent<Animal>().OfferItem(activeItem.GetComponent<Draggable>().itemType);
+                if (success) {
+                    Destroy(activeItem);
+                    SetActiveToHands(false);
+                }
             }
         }
     }
+    void Update()
+    {
+        if (itemChestOpen.activeSelf) {
+            Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+        } else {
+            Cursor.SetCursor(null, Vector2.zero, cursorMode);
+        }
+    }  
 
 }
