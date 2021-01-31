@@ -53,9 +53,7 @@ public class Animal : MonoBehaviour
         targetTime -= Time.deltaTime;
         progress.material.SetFloat("_Arc2", targetTime * (progressFull/fullTime));
         if (targetTime <= 0f && !moving) {
-            gameController.AddStrike();
-            SetMood("Bad");
-            Leave();
+            AddStrikeAndLeave();
         }
         if (targetTime < fullTime/2 && !showingHint) {
             showingHint = true;
@@ -71,6 +69,12 @@ public class Animal : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void AddStrikeAndLeave() {
+        gameController.AddStrike();
+        SetMood("Bad");
+        Leave();
     }
     
     public string AnimalInfo() {
@@ -132,6 +136,7 @@ public class Animal : MonoBehaviour
             Leave();
             return true;
         }
+        AddStrikeAndLeave();
         return false;
     }
 }
