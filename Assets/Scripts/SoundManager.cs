@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -30,7 +31,11 @@ public class SoundManager : MonoBehaviour
 		}
 
 		//Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
-		DontDestroyOnLoad (gameObject);
+
+		Scene activeScene = SceneManager.GetActiveScene();
+		if (activeScene.ToString() == "MarsuScene") {
+			DontDestroyOnLoad (gameObject);
+		}
 	}
 
 	// Play a single clip through the sound effects source.

@@ -193,6 +193,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMusic
       objectReference: {fileID: 0}
+    - target: {fileID: 2715668547196149523, guid: 624cfbe9150da174e9782638554731f1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 624cfbe9150da174e9782638554731f1, type: 3}
 --- !u!1001 &569599269
@@ -202,14 +207,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5399586204496901944, guid: 59897d382a883194fa66270cb97a478e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5399586204496901945, guid: 59897d382a883194fa66270cb97a478e,
         type: 3}
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5399586204496901945, guid: 59897d382a883194fa66270cb97a478e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5399586204496901947, guid: 59897d382a883194fa66270cb97a478e,
         type: 3}
       propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399586204496901947, guid: 59897d382a883194fa66270cb97a478e,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5399586204496901947, guid: 59897d382a883194fa66270cb97a478e,
