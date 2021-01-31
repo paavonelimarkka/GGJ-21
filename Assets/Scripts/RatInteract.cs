@@ -33,10 +33,8 @@ public class RatInteract : MonoBehaviour
         }
         if (col.tag == "Queue" && activeItem) {
             bool success = col.gameObject.GetComponent<Animal>().OfferItem(activeItem.GetComponent<Draggable>().itemType);
-            if (success) {
-                Destroy(activeItem);
-                SetActiveToHands(false);
-            }
+            Destroy(activeItem);
+            SetActiveToHands(false);
         }
     }
     void Update()
