@@ -14,6 +14,12 @@ public class RatMovement : MonoBehaviour
         float ver = Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
         transform.Translate(hor,ver,0);
+        if(Input.GetKeyDown("a")) {
+            gameObject.transform.localScale = new Vector3(-1f, 1f, 0);
+        }
+        if(Input.GetKeyDown("d")) {
+            gameObject.transform.localScale = new Vector3(1f, 1f, 0);
+        }
     }
     
 }
