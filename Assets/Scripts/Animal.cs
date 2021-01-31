@@ -52,6 +52,7 @@ public class Animal : MonoBehaviour
         targetTime -= Time.deltaTime;
         progress.material.SetFloat("_Arc2", targetTime * (progressFull/fullTime));
         if (targetTime <= 0f && !moving) {
+            gameController.ItemOffered();
             AddStrikeAndLeave();
         }
         if (targetTime < fullTime/2 && !showingHint) {

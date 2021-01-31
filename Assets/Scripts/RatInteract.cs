@@ -30,15 +30,12 @@ public class RatInteract : MonoBehaviour
     {
         if (col.gameObject == itemChest && Input.GetKey("e")) {
             itemChestOpen.SetActive(true);
-                 
         }
-        if (col.tag == "Queue" && Input.GetKeyDown("e")) {
-            if (activeItem) {
-                bool success = col.gameObject.GetComponent<Animal>().OfferItem(activeItem.GetComponent<Draggable>().itemType);
-                if (success) {
-                    Destroy(activeItem);
-                    SetActiveToHands(false);
-                }
+        if (col.tag == "Queue" && activeItem) {
+            bool success = col.gameObject.GetComponent<Animal>().OfferItem(activeItem.GetComponent<Draggable>().itemType);
+            if (success) {
+                Destroy(activeItem);
+                SetActiveToHands(false);
             }
         }
     }
