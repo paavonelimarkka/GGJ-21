@@ -32,13 +32,14 @@ public class Draggable : MonoBehaviour
     }
     
     void OnTriggerExit2D(Collider2D col) {
-        if (col.gameObject.tag == "ItemContainer" && !rat.GetComponent<RatInteract>().carrying && !isCarried) {
+        if (col.gameObject.tag == "ItemContainer"  && !isCarried) {
+            isDragging = false;
             isCarried = true;
             Debug.Log(current.GetComponent<Draggable>().itemType + " has been taken from the chest");
             RatInteract ratInteract = rat.GetComponent<RatInteract>();
             ratInteract.activeItem = current;
             ratInteract.itemChestOpen.SetActive(false);
-            ratInteract.SetActiveToHands();
+            ratInteract.SetActiveToHands(true);
             // current.SetActive(false);
         }
         

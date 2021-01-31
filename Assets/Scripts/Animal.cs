@@ -103,11 +103,13 @@ public class Animal : MonoBehaviour
         SoundManager.Instance.Play(animalSound);
     }
     
-    public void OfferItem(string offeredItem) {
+    public bool OfferItem(string offeredItem) {
         if (wantedItems.Contains(offeredItem)) {
             Debug.Log("Giitti mage!");
             SetMood("Good");
             Leave();
+            return true;
         }
+        return false;
     }
 }

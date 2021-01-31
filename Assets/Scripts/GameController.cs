@@ -93,7 +93,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SetStatusText("Status");
-        StartCoroutine(AnimalSpawner(1f, 0.5f));
+        StartCoroutine(AnimalSpawner(10f, 3f));
     }
     public void SetStatusText(string text) {
         statusText.GetComponent<Text>().text = text;
@@ -169,8 +169,9 @@ public class GameController : MonoBehaviour
             float containerMargin = 1;
             Vector3 randomPosition = container.transform.position + GetRandomSpawn(container, containerMargin);
             GameObject newItem = Instantiate(itemPrefab, randomPosition, container.transform.rotation);
-            newItem.GetComponent<Draggable>().rat = ratPlayer;
-            newItem.GetComponent<Draggable>().itemType = item;
+            Draggable newDraggable = newItem.GetComponent<Draggable>();
+            newDraggable.rat = ratPlayer;
+            newDraggable.itemType = item;
             newItem.GetComponent<SpriteRenderer>().sprite = itemSprites[item];
             newItem.transform.SetParent(container.transform);
         }

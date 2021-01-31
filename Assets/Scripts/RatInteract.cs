@@ -9,10 +9,15 @@ public class RatInteract : MonoBehaviour
     public GameObject itemChestOpen;
 
     public bool carrying = false;    
-    public void SetActiveToHands() {
-        carrying = true;
+    public void SetActiveToHands(bool setItem) {
         GameObject hands = this.gameObject.transform.GetChild(0).gameObject;
-        hands.GetComponent<SpriteRenderer>().sprite = activeItem.GetComponent<SpriteRenderer>().sprite;
+        if (!setItem) {
+            hands.GetComponent<SpriteRenderer>().sprite = null;
+            carrying = false;
+        } else {
+            hands.GetComponent<SpriteRenderer>().sprite = activeItem.GetComponent<SpriteRenderer>().sprite;
+            carrying = true;
+        }
     }
     void OnTriggerStay2D(Collider2D col)
     {
@@ -21,7 +26,11 @@ public class RatInteract : MonoBehaviour
         }
         if (col.tag == "Queue" && Input.GetKey("e")) {
             Debug.Log("Queue stuff activated");
-            col.gameObject.GetComponent<Animal>().OfferItem(activeItem.GetComponent<Draggable>().itemType);
+            bool success = col.gameObject.GetComponent<Animal>().OfferItem(activeItem.GetComponent<Draggable>().itemType);
+            if (success) {
+                Destroy(activeItem);
+                SetActiveToHands(false);
+            }
         }
     }
 
