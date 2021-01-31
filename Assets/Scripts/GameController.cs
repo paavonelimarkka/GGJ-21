@@ -93,7 +93,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SetStatusText("Status");
-        StartCoroutine(AnimalSpawner(10f, 3f));
+        StartCoroutine(AnimalSpawner(3f, 1f));
     }
     public void SetStatusText(string text) {
         statusText.GetComponent<Text>().text = text;

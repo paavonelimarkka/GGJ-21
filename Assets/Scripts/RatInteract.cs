@@ -32,8 +32,7 @@ public class RatInteract : MonoBehaviour
             itemChestOpen.SetActive(true);
                  
         }
-        if (col.tag == "Queue" && Input.GetKeyDown("e")) {
-            Debug.Log("Queue stuff activated");
+        if (col.tag == "Queue" && Input.GetKey("e")) {
             if (activeItem) {
                 bool success = col.gameObject.GetComponent<Animal>().OfferItem(activeItem.GetComponent<Draggable>().itemType);
                 if (success) {
