@@ -1,4 +1,4 @@
-# GGJ-21
+# Oh No! Animal Query, GGJ-21
 
 This game is our entry on Global Game Jam 2021  
 [https://globalgamejam.org/2021/games/oh-no-animal-query-9](https://globalgamejam.org/2021/games/oh-no-animal-query-9)
