@@ -52,7 +52,7 @@ public class Queue : MonoBehaviour
     private void InitializeAnimal(GameObject animalObject, KeyValuePair<string, List<string>> animalInfo) {
         animalObject.AddComponent<Animal>();
         Animal animal = animalObject.GetComponent<Animal>();
-        animal.Initialize(animalInfo.Key, Random.Range(30f,160f), animalInfo.Value);
+        animal.Initialize(animalInfo.Key, Random.Range(30f,60f), animalInfo.Value);
         currentAnimal = animal;
     }
 }

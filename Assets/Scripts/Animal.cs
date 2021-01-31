@@ -33,12 +33,11 @@ public class Animal : MonoBehaviour
 
     public void Initialize(string animal, float animalHurry, List<string> itemList) {
         animalType = animal;
-        fullTime = 10f;
+        fullTime = animalHurry;
         targetTime = fullTime;
-        speed = defaultSpeed + (animalHurry / 1000f);
+        speed = defaultSpeed + (animalHurry / 3f);
         wantedItems = itemList;
         spawnTime = new System.DateTime();
-        speed = defaultSpeed * animalHurry;
         animalSprite = this.GetComponent<AnimalResources>().animalSprites[animal];
         GetComponent<SpriteRenderer>().sprite = animalSprite;
     }
@@ -129,6 +128,7 @@ public class Animal : MonoBehaviour
     }
     
     public bool OfferItem(string offeredItem) {
+        gameController.ItemOffered();
         if (wantedItems.Contains(offeredItem)) {
             gameController.scoreInt += (int)targetTime * Random.Range(3,10);
             Debug.Log("Giitti mage!");
