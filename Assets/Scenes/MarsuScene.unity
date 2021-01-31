@@ -803,6 +803,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUi
       objectReference: {fileID: 0}
+    - target: {fileID: 3868085863667924407, guid: eaaccf96d81f00b4b8d20e875124461a,
+        type: 3}
+      propertyPath: m_Name
+      value: ScoreBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195516086996277564, guid: eaaccf96d81f00b4b8d20e875124461a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195516086996277564, guid: eaaccf96d81f00b4b8d20e875124461a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 227.10297
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195516086996277564, guid: eaaccf96d81f00b4b8d20e875124461a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaaccf96d81f00b4b8d20e875124461a, type: 3}
 --- !u!1 &1160842258 stripped
