@@ -8,7 +8,7 @@ using UnityEngine;
 public class Animal : MonoBehaviour
 {
     private string animalType;
-    private AnimalItem item;
+    private List<string> wantedItems;
     private DateTime spawnTime;
     private Sprite animalSprite;
 
@@ -29,12 +29,12 @@ public class Animal : MonoBehaviour
     public Queue queueReference;
     private GameController gameController;
 
-    public void Initialize(string animal, float animalHurry, string wantedItem) {
+    public void Initialize(string animal, float animalHurry, List<string> itemList) {
         animalType = animal;
         fullTime = 10f;
         targetTime = fullTime;
         speed = defaultSpeed + (animalHurry / 1000f);
-        item = new AnimalItem(wantedItem);
+        wantedItems = itemList;
         spawnTime = new DateTime();
         speed = defaultSpeed * animalHurry;
         animalSprite = this.GetComponent<AnimalResources>().animalSprites[animal];
@@ -50,6 +50,8 @@ public class Animal : MonoBehaviour
         targetTime -= Time.deltaTime;
         progress.material.SetFloat("_Arc2", targetTime * (progressFull/fullTime));
         if (targetTime <= 0f && !moving) {
+            gameController.AddStrike();
+            SetMood("Bad");
             Leave();
         }
         if (moving) {
@@ -65,7 +67,7 @@ public class Animal : MonoBehaviour
     }
     
     public string AnimalInfo() {
-        return $"I am {name}, I need to get the item in {spawnTime.AddSeconds(fullTime).ToString("ss")} seconds || My Item: {item.ToString()}";
+        return $"I am {name}, I need to get the item in {spawnTime.AddSeconds(fullTime).ToString("ss")} seconds || My Item: ";
     }
 
     public void Move(Vector3 moveTo) {
@@ -82,12 +84,9 @@ public class Animal : MonoBehaviour
     }
 
     public void Leave() {
-
-        SetMood("Bad");
+        queueReference.LeaveFromQueue(this.gameObject);
         PlaySound();
         GetComponent<SpriteRenderer>().flipX = true;
-        
-        queueReference.LeaveFromQueue(this.gameObject);
         wayPoint = wayPointBack;
         moving = true;
         destructOnArrival = true;
@@ -104,4 +103,11 @@ public class Animal : MonoBehaviour
         SoundManager.Instance.Play(animalSound);
     }
     
+    public void OfferItem(string offeredItem) {
+        if (wantedItems.Contains(offeredItem)) {
+            Debug.Log("Giitti mage!");
+            SetMood("Good");
+            Leave();
+        }
+    }
 }

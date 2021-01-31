@@ -39,7 +39,7 @@ public class Queue : MonoBehaviour
             Animal animal = animalObject.GetComponent<Animal>();
             Vector3 newWayPoint = animal.wayPoint;
             newWayPoint -= moveWayPoint;
-            Debug.Log(newWayPoint + "Uusi muutettu waypoint");
+            // Debug.Log(newWayPoint + "Uusi muutettu waypoint");
             animal.Move(newWayPoint);
         }
     }
@@ -52,7 +52,7 @@ public class Queue : MonoBehaviour
     private void InitializeAnimal(GameObject animalObject, KeyValuePair<string, List<string>> animalInfo) {
         animalObject.AddComponent<Animal>();
         Animal animal = animalObject.GetComponent<Animal>();
-        animal.Initialize(animalInfo.Key, Random.Range(30f,80f), animalInfo.Value[Random.Range(0, animalInfo.Value.Count)]);
+        animal.Initialize(animalInfo.Key, Random.Range(30f,80f), animalInfo.Value);
         currentAnimal = animal;
     }
 }

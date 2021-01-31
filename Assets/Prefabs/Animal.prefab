@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 551866614}
   m_Layer: 0
   m_Name: Animal
-  m_TagString: Untagged
+  m_TagString: Queue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -261,6 +261,14 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 9e54e1828953a4a0689220ac48f7cc25, type: 3}
   - name: Bat
     sprite: {fileID: 21300000, guid: 4297a96f3e463ed4788503b0c65735b5, type: 3}
+  - name: Bear
+    sprite: {fileID: 21300000, guid: 07434ffbbc01647da8f191bb0c5d32d4, type: 3}
+  - name: Cock
+    sprite: {fileID: 21300000, guid: 6dce7444b0be08a4d92ebc80a463002a, type: 3}
+  - name: Octopus
+    sprite: {fileID: 21300000, guid: f7c324d42bf03804ab7f907fbd256e97, type: 3}
+  - name: Rabbit
+    sprite: {fileID: 21300000, guid: 1118d524b4dd145619042da0f34dadf5, type: 3}
   moods:
   - name: Bad
     sprite: {fileID: 21300000, guid: 1f0cb5dba9726f14d9f3dcd4d41cad9b, type: 3}
@@ -281,6 +289,14 @@ MonoBehaviour:
     sound: {fileID: 8300000, guid: cf3f90f899b824d4d932fe39258a823f, type: 3}
   - name: Bat
     sound: {fileID: 8300000, guid: 26da43eeda8407340bcb5ba63fc812e2, type: 3}
+  - name: Rabbit
+    sound: {fileID: 8300000, guid: 6df585639f6fd5449afb3cfad01222d7, type: 3}
+  - name: Bear
+    sound: {fileID: 8300000, guid: a6c581bd43f45ee459120200d7a0ba86, type: 3}
+  - name: Cock
+    sound: {fileID: 8300000, guid: 589487ebb0df139429e926478e7c0573, type: 3}
+  - name: Octopus
+    sound: {fileID: 8300000, guid: fca364906fe0d914da1faef4a0b6966e, type: 3}
 --- !u!1 &4459740418465409616
 GameObject:
   m_ObjectHideFlags: 0

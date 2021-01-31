@@ -6,6 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    // Item sprites struct for editor
+    [System.Serializable]
+    public struct NamedSprite {
+        public string name;
+        public Sprite sprite;
+    }
+
+    [SerializeField]
+    public NamedSprite[] items;
+    public Dictionary<string, Sprite> itemSprites;
     // UI Stuff
     [SerializeField]
     private Text statusText;
@@ -30,62 +40,60 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject animalPrefab;
 
-    [SerializeField]
-    private List<Sprite> animalSprites;
-
     private bool canSpawn;
 
     // PLAYER *HEALTH*
+    public GameObject ratPlayer;
     private int strikes = 0;
-
+    public bool gameOver = false;
+    public GameObject strikeCounter;
     // Level info used to populate the queue & chest/box/whatever
     private List<KeyValuePair<string, List<string>>> firstLvlAnimals = new List<KeyValuePair<string, List<string>>>();
     // Make an instance of LevelInfo parameters: int level, int timelimit,
     // Dictionary<string, List<string>> animalDictionary with animal names as keys and list of possible lost items as value
     private LevelInfo firstLevel;
-    
+    private List<string> levelItems;
+
     void Awake() 
     {
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "Tooth", "Mane", "Severed leg" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Reindeer", new List<string>{ "Claw", "Honey", "Berries" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Reindeer", new List<string>{ "Claw", "Honey", "Berries" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Reindeer", new List<string>{ "Claw", "Honey", "Berries" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Reindeer", new List<string>{ "Claw", "Honey", "Berries" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Turtle", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Turtle", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Turtle", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Turtle", new List<string>{ "Ball of yarn", "Catnip", "Mouse toy" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "Fin", "Snorkle", "Harpoon" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bulldog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bulldog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bulldog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
-        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bulldog", new List<string>{ "Bone", "Chewed football", "AutoPet4000" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bat", new List<string>{ "bloodpack", "teeth", "garlic" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bulldog", new List<string>{ "cigar", "bone", "ball" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Elephant", new List<string>{ "vase", "tukki", "allas" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "mane", "crown", "conditioner" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Reindeer", new List<string>{ "bell", "nose", "present" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "surfboard", "snorkle", "harpoon" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Turtle", new List<string>{ "nunchaku", "pizza", "turtlewax" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Rabbit", new List<string>{ "carrot", "clock", "ears" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bear", new List<string>{ "honey", "salmon", "marjapoimuri" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Cock", new List<string>{ "aapinen", "flakes", "alarmclock" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Octopus", new List<string>{ "beachball", "muste", "treasure" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bat", new List<string>{ "bloodpack", "teeth", "garlic" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bulldog", new List<string>{ "cigar", "bone", "ball" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Elephant", new List<string>{ "vase", "tukki", "allas" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Lion", new List<string>{ "mane", "crown", "conditioner" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Reindeer", new List<string>{ "bell", "nose", "present" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Shark", new List<string>{ "surfboard", "snorkle", "harpoon" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Turtle", new List<string>{ "nunchaku", "pizza", "turtlewax" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Rabbit", new List<string>{ "carrot", "clock", "ears" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Bear", new List<string>{ "honey", "salmon", "marjapoimuri" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Cock", new List<string>{ "aapinen", "flakes", "alarmclock" }));
+        firstLvlAnimals.Add(new KeyValuePair<string, List<string>>("Octopus", new List<string>{ "beachball", "muste", "treasure" }));
+        
         canSpawn = true;
         // Generate animals and animal items, populate a container with items
-        foreach (KeyValuePair<string, List<string>> animal in firstLvlAnimals) {
-            // Set up the new item with random color
-            GameObject newItem = itemPrefab;
-            RandomizeColor(newItem);
-
-            // Get container bounding rect and select a random position inside it (with a margin for graphics)
-            float containerMargin = 1;
-            Vector3 randomPosition = container.transform.position + GetRandomSpawn(container, containerMargin);
-            
-            //Instantiate(newItem, randomPosition, container.transform.rotation);
+        itemSprites = new Dictionary<string, Sprite>();
+        foreach(NamedSprite item in items){
+            itemSprites.Add(item.name, item.sprite);
         }
+        levelItems = GenerateItemList(10);
+        PopulateContainer();
     }
 
 
     void Start()
     {
         SetStatusText("Status");
-        StartCoroutine(AnimalRandTimer(1f, 0.5f));
+        StartCoroutine(AnimalSpawner(1f, 0.5f));
     }
     public void SetStatusText(string text) {
         statusText.GetComponent<Text>().text = text;
@@ -93,11 +101,15 @@ public class GameController : MonoBehaviour
 
     public void AddStrike() {
         strikes ++;
+        strikeCounter.GetComponent<StrikeCounter>().strikeCount = strikes;
         if (strikes == 3) {
-            GameOver();
+            float waitUntilLoad = 0.5f;
+            StartCoroutine(GameOver(waitUntilLoad));
         }
     }
-    private void GameOver() {
+    IEnumerator GameOver(float waitUntilLoad) {
+        gameOver = true;
+        yield return new WaitForSeconds(waitUntilLoad);
         SceneManager.LoadScene("GameOver");
     }
     // Randomize GameObjects color
@@ -122,7 +134,7 @@ public class GameController : MonoBehaviour
         return new Vector3(Random.Range(xMin, xMax), Random.Range(yMin, yMax), 0);
     }
 
-    IEnumerator AnimalRandTimer(float wait, float randomizer)
+    IEnumerator AnimalSpawner(float wait, float randomizer)
     {
         while(canSpawn && firstLvlAnimals.Count > 0) {
             yield return new WaitForSeconds(1f);
@@ -137,5 +149,30 @@ public class GameController : MonoBehaviour
         GameObject chosenQueue = queues[Random.Range(0, queues.Count)];
         chosenQueue.GetComponent<Queue>().SpawnToQueue(randomAnimalInfo, animalPrefab);
         firstLvlAnimals.Remove(randomAnimalInfo);
+    }
+
+    private List<string> GenerateItemList(int additionalItems) {
+        List<string> itemList = new List<string>();
+        foreach(KeyValuePair<string, List<string>> animal in firstLvlAnimals) {
+            itemList.Add(animal.Value[Random.Range(0, animal.Value.Count)]);
+        }
+        for(int i = 0; i < additionalItems; i++) {
+            List<string> randomItemsList = firstLvlAnimals[Random.Range(0, firstLvlAnimals.Count)].Value;
+            itemList.Add(randomItemsList[Random.Range(0, randomItemsList.Count)]);
+        }
+        return itemList;
+    }
+
+    private void PopulateContainer() {
+        foreach (string item in levelItems) {
+            // Get container bounding rect and select a random position inside it (with a margin for graphics)
+            float containerMargin = 1;
+            Vector3 randomPosition = container.transform.position + GetRandomSpawn(container, containerMargin);
+            GameObject newItem = Instantiate(itemPrefab, randomPosition, container.transform.rotation);
+            newItem.GetComponent<Draggable>().rat = ratPlayer;
+            newItem.GetComponent<Draggable>().itemType = item;
+            newItem.GetComponent<SpriteRenderer>().sprite = itemSprites[item];
+            newItem.transform.SetParent(container.transform);
+        }
     }
 }

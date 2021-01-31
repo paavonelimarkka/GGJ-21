@@ -5,13 +5,21 @@ using UnityEngine;
 public class Draggable : MonoBehaviour
 {
     private bool isDragging;
+    public string itemType;
     public GameObject rat;
 
-    public void OnMouseDown() {
+    private GameObject current;
+
+    private bool isCarried = false;
+
+    private void OnMouseDown() {
+        Debug.Log("Draggg");
+        isCarried = false;
         isDragging = true;
+        current = this.gameObject;
     }
 
-    public void OnMouseUp() {
+    private void OnMouseUp() {
         isDragging = false;
     }
 
@@ -22,13 +30,20 @@ public class Draggable : MonoBehaviour
             transform.Translate(mousePosition);
         }
     }
-
-    private void OnTriggerExit2D(Collider2D col) {
-        if (col.tag == "ItemContainer") {
-            Debug.Log(gameObject.name + " has been taken from the chest");
-            RatInteract kekkala = rat.GetComponent<RatInteract>();
-            kekkala.activeItem = gameObject.name;
+    
+    void OnTriggerExit2D(Collider2D col) {
+        if (col.gameObject.tag == "ItemContainer" && !rat.GetComponent<RatInteract>().carrying && !isCarried) {
+            isCarried = true;
+            Debug.Log(current.GetComponent<Draggable>().itemType + " has been taken from the chest");
+            RatInteract ratInteract = rat.GetComponent<RatInteract>();
+            ratInteract.activeItem = current;
+            ratInteract.itemChestOpen.SetActive(false);
+            ratInteract.SetActiveToHands();
+            // current.SetActive(false);
         }
+        
+        Debug.Log(col);
+        
     }
         
 }
