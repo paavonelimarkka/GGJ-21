@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class Animal : MonoBehaviour
 {
     private string animalType;
     private List<string> wantedItems;
-    private DateTime spawnTime;
+    private System.DateTime spawnTime;
     private Sprite animalSprite;
 
     public Vector3 wayPoint;
@@ -18,12 +17,15 @@ public class Animal : MonoBehaviour
     private float speed;
     private float defaultSpeed = 0.1f;
     private bool moving = false;
+    private bool showingHint = false;
 
     private float fullTime;
     private float targetTime;
 
     private float progressFull = 360f;
     private SpriteRenderer progress;
+
+    private GameObject hintObject;
 
     private bool destructOnArrival = false;
     public Queue queueReference;
@@ -35,13 +37,14 @@ public class Animal : MonoBehaviour
         targetTime = fullTime;
         speed = defaultSpeed + (animalHurry / 1000f);
         wantedItems = itemList;
-        spawnTime = new DateTime();
+        spawnTime = new System.DateTime();
         speed = defaultSpeed * animalHurry;
         animalSprite = this.GetComponent<AnimalResources>().animalSprites[animal];
         GetComponent<SpriteRenderer>().sprite = animalSprite;
     }
     void Start() {
         GameObject progressObject = this.gameObject.transform.GetChild(0).gameObject;
+        hintObject = this.gameObject.transform.GetChild(2).gameObject;
         gameController = GameObject.Find("/GameController").GetComponent<GameController>();
         progress = progressObject.GetComponent<SpriteRenderer>();
     }
@@ -53,6 +56,10 @@ public class Animal : MonoBehaviour
             gameController.AddStrike();
             SetMood("Bad");
             Leave();
+        }
+        if (targetTime < fullTime/2 && !showingHint) {
+            showingHint = true;
+            StartCoroutine(ShowHint());
         }
         if (moving) {
             float step = speed * Time.deltaTime;
@@ -93,9 +100,23 @@ public class Animal : MonoBehaviour
     }
 
     public void SetMood(string moodToSet) {
+        hintObject.SetActive(false);
         GameObject mood = this.gameObject.transform.GetChild(1).gameObject;
         mood.GetComponent<SpriteRenderer>().sprite = this.GetComponent<AnimalResources>().moodSprites[moodToSet];
         mood.SetActive(true);
+    }
+
+    IEnumerator ShowHint() {
+        progress.gameObject.SetActive(false);
+        hintObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = gameController.itemSprites[wantedItems[Random.Range(0, wantedItems.Count)]];
+        hintObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        hintObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = gameController.itemSprites[wantedItems[Random.Range(0, wantedItems.Count)]];
+        yield return new WaitForSeconds(2f);
+        hintObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = gameController.itemSprites[wantedItems[Random.Range(0, wantedItems.Count)]];
+        hintObject.SetActive(false);
+        progress.gameObject.SetActive(true);
+        showingHint = false;
     }
 
     public void PlaySound() {
@@ -105,6 +126,7 @@ public class Animal : MonoBehaviour
     
     public bool OfferItem(string offeredItem) {
         if (wantedItems.Contains(offeredItem)) {
+            gameController.scoreInt += (int)targetTime * Random.Range(3,10);
             Debug.Log("Giitti mage!");
             SetMood("Good");
             Leave();
